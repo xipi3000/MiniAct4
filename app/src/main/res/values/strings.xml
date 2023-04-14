@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ManejoServicioKotlin</string>
+    <string name="creaserv">Servicio creado</string>
+    <string name="finaserv">Servicio finalizado</string>
+    <string name="iniserv">Servicio iniciado</string>
+    <string name="botoIn">Reproducir Sonido</string>
+    <string name="botoFin">Detener</string>
+    <string name="tituloAct">Utilización de Servicios</string>
+    <string name="botoSong">Reproducir Canción</string>
+</resources>
