@@ -11,4 +11,9 @@
     <string name="botoBroadcastSong">BroadcastReceiver - Inicio reproducción canción</string>
     <string name="botoBroadcastFin">BroadcastReceiver - Detencion reproduccion</string>
     <string name="broadcastOnRecieve">Broadcast recibido</string>
+    <string name="broadcastSound">BroadcastReceiver - Inicio reproducción sonido</string>
+    <string name="broadcastSong">BroadcastReceiver - Inicio reproducción canción</string>
+    <string name="broadcastStop">“BroadcastReceiver - Detencion reproduccion</string>
+    <string name="headsetPluged">BroadcastReceiver - HEADSET_PLUG-ON</string>
+    <string name="headsetUnpluged">BroadcastReceiver - HEADSET_PLUG-OFF</string>
 </resources>

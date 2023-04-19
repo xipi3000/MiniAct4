@@ -20,7 +20,7 @@ class ElServicio: Service() {
         Toast.makeText(this, R.string.creaserv, Toast.LENGTH_LONG).show()
         playerSound = MediaPlayer.create(this,R.raw.train)
         playerSound!!.isLooping = true
-        playerMusic = MediaPlayer.create(this,R.raw.PerfectGirl_Mureaux)
+        playerMusic = MediaPlayer.create(this,R.raw.perfect_girl)
         playerMusic!!.isLooping = true
     }
 

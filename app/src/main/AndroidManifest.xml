@@ -20,7 +20,8 @@
         </activity>
 
         <service android:enabled="true" android:name=".ElServicio"
-            android:exported="false" />
+            android:exported="false"></service>
+        <receiver android:name=".ElBroadcastReceiver"></receiver>
     </application>
 
 </manifest>
