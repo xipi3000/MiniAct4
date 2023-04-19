@@ -7,4 +7,8 @@
     <string name="botoFin">Detener</string>
     <string name="tituloAct">Utilización de Servicios</string>
     <string name="botoSong">Reproducir Canción</string>
+    <string name="botoBroadcastIn">BroadcastReceiver - Inicio reproducción sonido</string>
+    <string name="botoBroadcastSong">BroadcastReceiver - Inicio reproducción canción</string>
+    <string name="botoBroadcastFin">BroadcastReceiver - Detencion reproduccion</string>
+    <string name="broadcastOnRecieve">Broadcast recibido</string>
 </resources>

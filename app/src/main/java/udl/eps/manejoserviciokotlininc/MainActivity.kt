@@ -18,15 +18,22 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         binding.btnIn.setOnClickListener(this)
         binding.btnSong.setOnClickListener(this)
         binding.btnFin.setOnClickListener(this)
+        binding.btnBroadFin.setOnClickListener(this)
+        binding.btnBroadSong.setOnClickListener(this)
+        binding.btnBroadIn.setOnClickListener(this)
 
     }
 
     override fun onClick(src: View) {
         intent = Intent(this,ElServicio::class.java)
+        var intentBroad = Intent(this, ElBroadcastReciever::class.java)
         when(src.id) {
             R.id.btnIn ->  startService(intent.putExtra("source","sound"))
             R.id.btnSong -> startService(intent.putExtra("source","song"))
+            R.id.btnBroadIn -> startService(intentBroad.putExtra("source","sound"))
+            R.id.btnBroadSong -> startService(intentBroad.putExtra("source","song"))
             R.id.btnFin -> stopService(intent)
+            R.id.btnBroadFin -> stopService(intentBroad)
         }
     }
 }
