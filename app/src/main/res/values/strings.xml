@@ -16,4 +16,5 @@
     <string name="broadcastStop">“BroadcastReceiver - Detencion reproduccion</string>
     <string name="headsetPluged">BroadcastReceiver - HEADSET_PLUG-ON</string>
     <string name="headsetUnpluged">BroadcastReceiver - HEADSET_PLUG-OFF</string>
+    <string name="botoUri">Agafa desel uri</string>
 </resources>

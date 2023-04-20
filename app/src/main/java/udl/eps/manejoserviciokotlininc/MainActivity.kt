@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         if (result.resultCode == Activity.RESULT_OK) {
             val intent: Intent? = result.data
             Toast.makeText(this,intent?.data.toString(),Toast.LENGTH_LONG).show()
+            val intentService = Intent(this,ElServicio::class.java)
+            intentService.putExtra("uri",intent?.data.toString())
+            startService(intentService)
         }
     }
 
@@ -40,13 +43,15 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         binding.btnBroadFin.setOnClickListener(this)
         binding.btnBroadSong.setOnClickListener(this)
         binding.btnBroadIn.setOnClickListener(this)
+        binding.btnUri.setOnClickListener(this)
 
     }
 
     override fun onClick(src: View) {
         intent = Intent(this,ElServicio::class.java)
         var intentBroad = Intent(this, ElBroadcastReceiver::class.java)
-
+        var intentUri = Intent(Intent.ACTION_PICK,
+            android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
         when(src.id) {
             R.id.btnIn ->  startService(intent.putExtra("source","sound"))
             R.id.btnSong -> startService(intent.putExtra("source","song"))
@@ -54,12 +59,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             R.id.btnBroadIn -> sendBroadcast(intentBroad.putExtra("source","sound"))
             R.id.btnBroadSong -> sendBroadcast(intentBroad.putExtra("source","song"))
             R.id.btnBroadFin -> sendBroadcast(intentBroad)
-            R.id.btnUri -> pickerLauncher.launch(
-                Intent(
-                    Intent.ACTION_PICK,
-                    android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-            )
-            )
+            R.id.btnUri -> pickerLauncher.launch(intentUri)
         }
     }
 
