@@ -12,14 +12,21 @@ class ElBroadcastReceiver : BroadcastReceiver() {
         Toast.makeText(p0?.applicationContext,R.string.broadcastOnRecieve,Toast.LENGTH_LONG).show()
         val intent = Intent(p0!!.applicationContext,ElServicio :: class.java)
         if(p1!!.action !=null){
-            if(p1.action.equals("android.intent.action.HEADSET_PLUG")){
-                Toast.makeText(p0?.applicationContext,R.string.headsetPluged,Toast.LENGTH_LONG).show()
-                p0!!.startService(intent.putExtra("source","song"))
+            if(p1.action.equals(Intent.ACTION_HEADSET_PLUG)){
+                if (intent.getIntExtra("state", -1) == 0) {
+                    Toast.makeText(
+                        p0?.applicationContext,
+                        R.string.headsetPluged,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    p0!!.startService(intent.putExtra("source", "song"))
+                }
+                else{
+                    Toast.makeText(p0?.applicationContext,R.string.headsetUnpluged,Toast.LENGTH_LONG).show()
+                    p0?.stopService(intent)
+                }
             }
-            else{
-                Toast.makeText(p0?.applicationContext,R.string.headsetUnpluged,Toast.LENGTH_LONG).show()
-                p0?.stopService(intent)
-            }
+
         }
         if(p1!!.hasExtra("source")){
             val source = p1!!.getStringExtra("source")
