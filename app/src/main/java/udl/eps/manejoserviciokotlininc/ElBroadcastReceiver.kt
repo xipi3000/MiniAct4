@@ -13,6 +13,7 @@ class ElBroadcastReceiver : BroadcastReceiver() {
         val intent = Intent(p0!!.applicationContext,ElServicio :: class.java)
         if(p1!!.action !=null){
             if(p1.action.equals(Intent.ACTION_HEADSET_PLUG)){
+                println(intent.getIntExtra("state",0))
                 if (intent.getIntExtra("state", -1) == 0) {
                     Toast.makeText(
                         p0?.applicationContext,

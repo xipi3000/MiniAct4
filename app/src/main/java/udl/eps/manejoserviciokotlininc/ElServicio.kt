@@ -25,7 +25,9 @@ class ElServicio: Service() {
         playerMusic = MediaPlayer.create(this,R.raw.perfect_girl)
         playerMusic!!.isLooping = true
         playerUri = MediaPlayer()
+
     }
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)

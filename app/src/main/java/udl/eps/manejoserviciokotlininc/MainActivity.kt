@@ -2,6 +2,8 @@ package udl.eps.manejoserviciokotlininc
 
 import android.app.Activity
 import android.app.Instrumentation.ActivityResult
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
@@ -33,6 +35,34 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        val mBroadcastReceiver = object : BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent) {
+                val mAction = intent.action
+                if (Intent.ACTION_HEADSET_PLUG == mAction) {
+                    if (intent.getIntExtra("state", -1) == 0) {
+                        Toast.makeText(applicationContext, "AUX not plugged in", Toast.LENGTH_LONG).show()
+                    }
+                    if (intent.getIntExtra("state", -1) == 1) {
+                        Toast.makeText(applicationContext, "AUX plugged in", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+
+        // Declaring a receiver filter for registering
+        val mReceiverFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
+
+        // Registering both broadcast receiver with receiver filter
+        registerReceiver(mBroadcastReceiver, mReceiverFilter)
+
+
+
+
+
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         headsetRegister()
