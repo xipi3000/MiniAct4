@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.IBinder
+import android.provider.MediaStore
 import android.widget.Toast
 
 class ElServicio: Service() {
@@ -25,15 +26,12 @@ class ElServicio: Service() {
         playerMusic = MediaPlayer.create(this,R.raw.perfect_girl)
         playerMusic!!.isLooping = true
         playerUri = MediaPlayer()
-        println("birkset")
-
     }
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         Toast.makeText(this, R.string.iniserv, Toast.LENGTH_LONG).show()
-        //println(intent?.getStringExtra("source"))
         if(intent?.getStringExtra("source")=="sound"){
             playerSound?.start()
         }
@@ -42,13 +40,15 @@ class ElServicio: Service() {
 
         }
         else if(intent!!.hasExtra("uri")){
-
-            Toast.makeText(this,intent.getStringExtra("uri"),Toast.LENGTH_LONG).show()
+            println("--->"+intent.getStringExtra("uri"))
+            Toast.makeText(this,"Opening uri",Toast.LENGTH_LONG).show()
             if(playerUri!!.isPlaying){
-                playerUri?.release()
+                playerUri?.stop()
             }
-            //playerUri?.setDataSource(intent.getStringExtra("uri"))
-            //playerUri?.start()
+            playerUri?.reset()
+            playerUri?.setDataSource(this, Uri.parse(intent.getStringExtra("uri")))
+            playerUri?.prepare()
+            playerUri?.start()
         }
         return startId
     }
