@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             startService(intentService.putExtra("uri",intent.data.toString()))
         }
     }
-    private lateinit var readContactsReqPermLaunc: ActivityResultLauncher<String>
+    private lateinit var readSongPermission: ActivityResultLauncher<String>
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -57,31 +57,37 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         binding.btnBroadSong.setOnClickListener(this)
         binding.btnBroadIn.setOnClickListener(this)
         binding.btnUri.setOnClickListener(this)
-        readContactsReqPermLaunc = registerForActivityResult(
+
+        readSongPermission = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-                var intentUri = Intent(Intent.ACTION_PICK,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
-                pickerLauncher.launch(intentUri)
-            } else {
-
+                pickSong()
             }
         }
 
     }
-    private fun requestPermissionsReadContacts() {
-        val shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(
-            this,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-        // Provide an additional rationale to the user. This would happen if the user denied the
-        // request previously, but didn't check the "Don't ask again" checkbox.
+    private fun pickSongPermission() {
+        if (!ckeckPermissionsReadMedia()) requestPermissionsReadSongs() else pickSong()
+    }
 
-            Log.i(ContentValues.TAG, "Requesting permission")
-            // Request permission.
-            readContactsReqPermLaunc.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+    private fun pickSong() {
+        var intentUri = Intent(Intent.ACTION_PICK,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
+        pickerLauncher.launch(intentUri)
+    }
+
+    private fun ckeckPermissionsReadMedia(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            applicationContext,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) ==
+                PackageManager.PERMISSION_GRANTED
+    }
+
+
+    private fun requestPermissionsReadSongs() {
+        Log.i(ContentValues.TAG, "Requesting permission")
+        readSongPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 
     }
 
@@ -98,7 +104,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
             R.id.btnBroadIn -> sendBroadcast(intentBroad.putExtra("source","sound"))
             R.id.btnBroadSong -> sendBroadcast(intentBroad.putExtra("source","song"))
             R.id.btnBroadFin -> sendBroadcast(intentBroad)
-            R.id.btnUri -> requestPermissionsReadContacts()
+            R.id.btnUri -> pickSongPermission()
         }
     }
 
