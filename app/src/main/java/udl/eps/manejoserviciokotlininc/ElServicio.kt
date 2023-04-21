@@ -25,6 +25,7 @@ class ElServicio: Service() {
         playerMusic = MediaPlayer.create(this,R.raw.perfect_girl)
         playerMusic!!.isLooping = true
         playerUri = MediaPlayer()
+        println("birkset")
 
     }
 
@@ -32,18 +33,21 @@ class ElServicio: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         Toast.makeText(this, R.string.iniserv, Toast.LENGTH_LONG).show()
+        //println(intent?.getStringExtra("source"))
         if(intent?.getStringExtra("source")=="sound"){
             playerSound?.start()
         }
         else if(intent?.getStringExtra("source")=="song") {
             playerMusic?.start()
+
         }
-        if(intent!!.hasExtra("uri")){
+        else if(intent!!.hasExtra("uri")){
+
             Toast.makeText(this,intent.getStringExtra("uri"),Toast.LENGTH_LONG).show()
             if(playerUri!!.isPlaying){
                 playerUri?.release()
             }
-            playerUri?.setDataSource(intent.getStringExtra("uri"))
+            //playerUri?.setDataSource(intent.getStringExtra("uri"))
             //playerUri?.start()
         }
         return startId
@@ -53,9 +57,10 @@ class ElServicio: Service() {
     override fun onDestroy() {
         super.onDestroy()
         Toast.makeText(this, R.string.finaserv, Toast.LENGTH_LONG).show()
-        if(playerSound!!.isPlaying) playerSound?.stop()
-        if(playerMusic!!.isPlaying) playerMusic?.stop()
-        playerSound?.release()
-        playerMusic?.release()
+        if(playerSound!!.isPlaying)playerSound?.stop()
+        if(playerMusic!!.isPlaying)playerMusic?.stop()
+        if(playerUri!!.isPlaying)playerUri?.stop()
+
+
     }
 }
